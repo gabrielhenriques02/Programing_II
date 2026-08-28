@@ -9,15 +9,13 @@
  * @param matrix Matriz a ser preenchida.
  */
 void matrix_read(int rows, int cols, int matrix[rows][cols]) {
-    //recebe e gaurda as linhas e colunas da matriz.
-    scanf("%i%i", &rows, &cols);
     
     //loop para preencher a matriz com os dados fornecidos pelo usuário.
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             scanf("%i", &matrix[i][j]);
         }
-        printf("\n");
+        
     }
 }
 
@@ -42,10 +40,6 @@ void matrix_print(int rows, int cols, int matrix[rows][cols]) {
         }
         printf("|\n");
     }
-
-    //quebra de linha final da impressão.
-    printf("\n");
-
 }
 
 /**
@@ -56,7 +50,7 @@ void matrix_print(int rows, int cols, int matrix[rows][cols]) {
  * @param cols2 Número de colunas da segunda matriz.
  * @return 1 se for possível somar as matrizes, 0 caso contrário.
  */
-int possible_matrix_sum(int rows1, int cols1, int rows2, int cols2){
+int possible_matrix_sum(int rows1, int cols1, int rows2, int cols2) {
     if (rows1 == rows2 && cols1 == cols2) {
         return 1;
     }
@@ -73,7 +67,7 @@ int possible_matrix_sum(int rows1, int cols1, int rows2, int cols2){
  * @param cols2 Número de colunas da segunda matriz.
  * @return 1 se for possível subtrair as matrizes, 0 caso contrário.
  */
-int possible_matrix_sub(int rows1, int cols1, int rows2, int cols2){
+int possible_matrix_sub(int rows1, int cols1, int rows2, int cols2) {
     if (rows1 == rows2 && cols1 == cols2) {
         return 1;
     }
@@ -88,7 +82,13 @@ int possible_matrix_sub(int rows1, int cols1, int rows2, int cols2){
  * @param rows2 Número de linhas da segunda matriz.
  * @return 1 se for possível multiplicar as matrizes, 0 caso contrário.
  */
-int possible_matrix_multiply(int cols1, int rows2){
+int possible_matrix_multiply(int cols1, int rows2) {
+    if (cols1 == rows2) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 
 }
 
@@ -102,8 +102,13 @@ int possible_matrix_multiply(int cols1, int rows2){
  * @param matrix2 Segunda matriz.
  * @param result Matriz que armazenará o resultado da soma.
  */
-void matrix_add(int rows1, int cols1, int matrix1[rows1][cols1], int rows2, int cols2, int matrix2[rows2][cols2], int result[rows1][cols1]){
-
+void matrix_add(int rows1, int cols1, int matrix1[rows1][cols1], int rows2, int cols2, int matrix2[rows2][cols2], int result[rows1][cols1]) {
+    //loop para somar os elementos de mesmo índice e armazenar na matriz result.
+    for (int i = 0; i < rows1; i++) {
+        for (int j = 0; j < cols1; j++) {
+            result[i][j] = matrix1[i][j] + matrix2[i][j];
+        }
+    }
 }
 
 /**
@@ -117,7 +122,12 @@ void matrix_add(int rows1, int cols1, int matrix1[rows1][cols1], int rows2, int 
  * @param result Matriz que armazenará o resultado da subtração.
  */
 void matrix_sub(int rows1, int cols1, int matrix1[rows1][cols1], int rows2, int cols2, int matrix2[rows2][cols2], int result[rows1][cols1]){
-
+    //loop para subtrair os elementos de mesmo índice e armazenar na matriz result.
+    for (int i = 0; i < rows1; i++) {
+        for (int j = 0; j < cols1; j++) {
+            result[i][j] = matrix1[i][j] - matrix2[i][j];
+        }
+    }
 }
 
 /**
