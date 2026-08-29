@@ -168,9 +168,10 @@ void matrix_multiply(int rows1, int cols1, int matrix1[rows1][cols1], int rows2,
  * @param result Matriz que armazenará o resultado da transposição.
  */
 void transpose_matrix(int rows, int cols, int matrix[rows][cols], int result[cols][rows]){
+    //loop para transpor os elementos da matriz
     for (int i = 0; i < cols; i++) {
         for (int j = 0; j < rows; j++) {
-            result[cols][rows] = matrix[rows][cols];
+            result[i][j] = matrix[j][i];
         }
     }
 }
