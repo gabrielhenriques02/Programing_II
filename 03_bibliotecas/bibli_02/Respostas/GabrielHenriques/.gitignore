@@ -1,3 +1,7 @@
 *.o
 prog
 *.txt
+*.vscode
+*.json
+*.sh
+*.csv

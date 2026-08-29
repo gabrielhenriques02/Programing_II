@@ -20,7 +20,7 @@ int main() {
     //lendo a matriz 2.
     matrix_read(rows2, cols2, matrix2);
     //fim do fluxo de início do programa.
-/*
+    
     //fluxo opcao 1 - somar matrizes
     //verifica se a soma é possível
     if (possible_matrix_sum(rows1, cols1, rows2, cols2) == 1) {
@@ -77,7 +77,7 @@ int main() {
         scalar_multiply(rows2, cols2, matrix2, scalar);
         matrix_print(rows2, cols2, matrix2);
     }
-*/
+
     //fluxo opcao 5 - transposta de uma matriz
     //definindo o resultado das transposicoes.
     int result1[cols1][rows1], result2[cols2][rows2];
