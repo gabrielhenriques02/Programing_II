@@ -41,6 +41,11 @@
 *.idb
 *.pdb
 
+# Respostas config.
+*.vscode/
+prog
+*.o
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd
