@@ -45,6 +45,10 @@
 *.vscode/
 prog
 *.o
+*.txt
+*.json
+*.sh
+*.csv
 
 # Kernel Module Compile Results
 *.mod*
