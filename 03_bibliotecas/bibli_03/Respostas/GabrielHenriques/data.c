@@ -1,6 +1,9 @@
 #include "data.h"
 #include <stdio.h>
 
+#define YEAR 365
+#define LEAP_YEAR 366
+
 /**
  * @brief Verifica se uma data é válida.
  * 
@@ -9,7 +12,7 @@
  * @param ano Ano da data.
  * @return int Retorna 1 se a data é válida e 0 caso contrário.
  */
-int verificaDataValida(int dia, int mes, int ano) { //precisa testar e comentar
+int verificaDataValida(int dia, int mes, int ano) {
     if (ano < 1 ){
         return 0;
     }
@@ -75,6 +78,9 @@ int verificaDataValida(int dia, int mes, int ano) { //precisa testar e comentar
                 return 1;
             }
         }
+    }
+    else {
+        return 1;
     }
 }
 
@@ -179,6 +185,9 @@ int numeroDiasMes(int mes, int ano) { //precisa testar e comentar
                     return 29;
                 }
             }
+            else { //testando correção erro compilaçao
+                return 0;
+            }
         }
     }
 }
@@ -239,6 +248,7 @@ int calculaDiasAteMes(int mes, int ano){
     for(int i = 1; i < mes; i++) {
         diasAteMes += numeroDiasMes(i, ano);
     }
+    return diasAteMes;
 }
 
 /**
@@ -253,20 +263,77 @@ int calculaDiasAteMes(int mes, int ano){
  * @return int Retorna o número de dias de diferença entre as datas.
  */
 int calculaDiferencaDias(int dia1, int mes1, int ano1, int dia2, int mes2, int ano2){
-    int dias1 = 0, dias2 = 0;
-    if (ano1 > ano2) { //falta pensar em como fazer isso aqui... 
-        //dias contados em ano1
-        dias1 = calculaDiasAteMes(mes1, ano1);
-        //calcular dias que faltam para acabar ano2
-        if (verificaBissexto(ano2) == 0) {
-            dias2 = 365 - calculaDiasAteMes(mes2, ano2);
+    /*
+    diffDias: diferença total de dias entre as datas (valor  a ser retornado)
+    menorAno: ano arbitrado como o menor para a recursao do ultimo if funcionar
+    */
+    int dias1 = 0, dias2 = 0, diffDias = 0, menorAno = ano2;
+    //mesma data -> diffDias continua 0
+    if (comparaData(dia1, mes1, ano1, dia2, mes2, ano2) == 0) {
+        return diffDias;
+    }
+    //quando as datas de entrada obedecem o esperado: ano2 no passado em relação à ano 1.
+    else if (comparaData(dia1, mes1, ano1, dia2, mes2, ano2) == 1) {
+        /*
+        quando as datas estao no mesmo ano, calculamos apenas a diferença entre os tempo decorrido naquele ano ate a data,
+        utilizando a função calcula dias ate mes
+        */
+        if (ano2 == ano1) {
+            //dias contados ate data1
+            dias1 = calculaDiasAteMes(mes1, ano1) + dia1;
+            //dias ate data 2
+            dias2 = calculaDiasAteMes(mes2, ano2) + dia2;
+            diffDias = dias1 - dias2;
+            return diffDias;
         }
-        else {
-            dias2 = 366 - calculaDiasAteMes(mes2, ano2);
+        //se nao estao no mesmo ano...
+        else if (ano2 < ano1) {
+            /*
+            existe sempre uma diferença base: dias que faltam para acabar ano2 e dias decorridos do inicio de ano1 ate data1.
+            dias para acabar ano2 depende se ano2 é ou não bissexto.
+            a partir dessa diferença base incrementamos uma quantidade de dias relativa anos completos (365 ou 366 dias) que
+            existem no intervalo nao inclusivo entre ano2 e ano1
+            */
+            dias1 = calculaDiasAteMes(mes1, ano1) + dia1;
+            if (verificaBissexto(ano2) == 1) {
+                //calcula dias que faltam para acabar ano2
+                dias2 = LEAP_YEAR - (calculaDiasAteMes(mes2, ano2) + dia2);
+                //define a diferença base
+                diffDias = dias2 + dias1;
+                //incrementa se existirem anos compeletos no intervalo nao inclusivo entre ano2 e ano1
+                while (menorAno + 1 < ano1) {
+                    if (verificaBissexto(menorAno + 1) == 1) {
+                        diffDias += LEAP_YEAR;
+                    }
+                    else {
+                        diffDias += YEAR;
+                    }
+                }
+                return diffDias;
+            }
+            else {
+                //calcula dias que faltam para acabar ano2
+                dias2 = YEAR - (calculaDiasAteMes(mes2, ano2) + dia2);
+                //define a diferença base
+                diffDias = dias2 + dias1;
+                //incrementa se existirem anos compeletos no intervalo nao inclusivo entre ano2 e ano1
+                while (menorAno + 1 < ano1) {
+                    if (verificaBissexto(menorAno + 1) == 1) {
+                        diffDias += LEAP_YEAR;
+                    }
+                    else {
+                        diffDias += YEAR;
+                    }
+                }
+                return diffDias;
+            }
         }
-        //calcula dias para anos completos entre ano1 e ano2
-        for (ano2; ano2 < ano1; ano2++) {
-
-        }
+    }
+    //recursão para o caso das data maior ser colocada na entrada final
+    else if (comparaData(dia1, mes1, ano1, dia2, mes2, ano2) == -1) {
+        return calculaDiferencaDias(dia2, mes2, ano2, dia1, mes1, ano1);
+    }
+    else {
+        return -1;
     }
 }
