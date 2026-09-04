@@ -518,4 +518,6 @@ void imprimeProximaData(int dia, int mes, int ano) {
             }
         }
     }
+
+    imprimeData(proxDia, proxMes, proxAno);
 }
