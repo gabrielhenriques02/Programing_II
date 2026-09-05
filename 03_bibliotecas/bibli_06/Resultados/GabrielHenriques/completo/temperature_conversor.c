@@ -16,7 +16,7 @@ float convert_celsius_to_kelvin(float temperature){
  * @return A temperatura em Fahrenheit.
  */
 float convert_celsius_to_fahrenheit(float temperature){
-    return (9 * temperature - 160) / 5;
+    return (9 * temperature + 160) / 5;
 }
 
 /**
