@@ -59,72 +59,39 @@ tTabuleiro JogaJogador(tJogador jogador, tTabuleiro tabuleiro) { //construir log
  * 
  * @return 1 se o jogador venceu, 0 caso contrário.
  */
-int VenceuJogador(tJogador jogador, tTabuleiro tabuleiro) { //corrigir logica da diagonal e evitar a repetição de codigo
-    int countDiagPrinc = 0, countDiagSec = 0;
+int VenceuJogador(tJogador jogador, tTabuleiro tabuleiro) { //fazer verificação de vitória escalável (com loops)
+    char peca;
+    
     if (jogador.id == 1) {
-        for (int i = 0; i < TAM_TABULEIRO; i++) {
-            int countI = 0, countJ = 0;
-            for (int j = 0; j < TAM_TABULEIRO; j++) {
-                if (tabuleiro.posicoes[i][j] == tabuleiro.peca1) { //verificando se preencheu uma linha
-                    countI++;
-                    if (countI == 3) {
-                        return 1;
-                    }
-                }
-                else if (tabuleiro.posicoes[j][i] == tabuleiro.peca1) { //verificando se preencheu uma coluna
-                    countJ++;
-                    if (countJ == 3) {
-                        return 1;
-                    }
-                }
-                else if (tabuleiro.posicoes[j][j] == tabuleiro.peca1) { //verificando a diagonal principal
-                    countDiagPrinc++;
-                    if (countDiagPrinc == 3) {
-                        return 1;
-                    }
-                }
-                else if (tabuleiro.posicoes[j][TAM_TABULEIRO - 1 - j] == tabuleiro.peca1) { //verificando diagonal secundaria
-                    countDiagSec++;
-                    if (countDiagSec == 3) {
-                        return 1;
-                    }
-                }
-            }
-        }
-
-        return 0;
+        peca = tabuleiro.peca1;
     }
     else {
-        for (int i = 0; i < TAM_TABULEIRO; i++) {
-            int countI = 0, countJ = 0, countDiagPrinc = 0, countDiagSec = 0;
-            for (int j = 0; j < TAM_TABULEIRO; j++) {
-                if (i % 3 == i && tabuleiro.posicoes[i][j] == tabuleiro.peca2) { //verificando se preencheu uma linha
-                    countI++;
-                    if (countI == 3) {
-                        return 1;
-                    }
-                }
-                else if (j % 3 == j && tabuleiro.posicoes[j][i] == tabuleiro.peca2) { //verificando se preencheu uma coluna
-                    countJ++;
-                    if (countJ == 3) {
-                        return 1;
-                    }
-                }
-                else if (tabuleiro.posicoes[j][j] == tabuleiro.peca2) { //verificando a diagonal principal
-                    countDiagPrinc++;
-                    if (countDiagPrinc == 3) {
-                        return 1;
-                    }
-                }
-                else if (tabuleiro.posicoes[j][TAM_TABULEIRO - 1 - j] == tabuleiro.peca2) { //verificando diagonal secundaria
-                    countDiagSec++;
-                    if (countDiagSec == 3) {
-                        return 1;
-                    }
-                }
+        peca = tabuleiro.peca2;
+    }
+
+    for (int i = 0; i < TAM_TABULEIRO; i++) {
+        if (tabuleiro.posicoes[i][0] == peca && 
+            tabuleiro.posicoes[i][1] == peca &&
+            tabuleiro.posicoes[i][2] == peca) {
+                return 1;
             }
+        if (tabuleiro.posicoes[0][i] == peca && 
+            tabuleiro.posicoes[1][i] == peca &&
+            tabuleiro.posicoes[2][i] == peca) {
+                return 1;
+            }
+    }
+
+    if (tabuleiro.posicoes[0][0] == peca && 
+        tabuleiro.posicoes[1][1] == peca &&
+        tabuleiro.posicoes[2][2] == peca) {
+            return 1;
+        }
+    if (tabuleiro.posicoes[0][2] == peca && 
+        tabuleiro.posicoes[1][1] == peca &&
+        tabuleiro.posicoes[2][0] == peca) {
+            return 1;
         }
 
-        return 0;
-    }
+    return 0;
 }
