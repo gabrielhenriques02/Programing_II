@@ -32,7 +32,7 @@ tTabuleiro CriaTabuleiro() {
  * 
  * @return o tabuleiro atualizado.
  */
-tTabuleiro MarcaPosicaoTabuleiro(tTabuleiro tabuleiro, int peca, int x, int y) { //noa faz verificações
+tTabuleiro MarcaPosicaoTabuleiro(tTabuleiro tabuleiro, int peca, int x, int y) { //nao faz verificações!
     if (peca == 1) {
         tabuleiro.posicoes[y][x] = 'X';
         return tabuleiro;
