@@ -59,7 +59,7 @@ tTabuleiro JogaJogador(tJogador jogador, tTabuleiro tabuleiro) { //construir log
  * 
  * @return 1 se o jogador venceu, 0 caso contrário.
  */
-int VenceuJogador(tJogador jogador, tTabuleiro tabuleiro) { //corrigir logica da diagonal e evitar a repetição de codigo
+int VenceuJogador(tJogador jogador, tTabuleiro tabuleiro) { //fazer verificação de vitória escalável (com loops)
     char peca;
     
     if (jogador.id == 1) {

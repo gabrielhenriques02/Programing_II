@@ -7,7 +7,11 @@
  * @return o jogo criado.
  */
 tJogo CriaJogo() {
-
+    tJogo jogo;
+    jogo.tabuleiro = CriaTabuleiro();
+    jogo.jogador1 = CriaJogador(1);
+    jogo.jogador2 = CriaJogador(2);
+    return jogo;
 }
 
 
@@ -17,7 +21,7 @@ tJogo CriaJogo() {
  * @param jogo o jogo a ser iniciado.
  */
 void ComecaJogo(tJogo jogo) {
-
+    CriaJogo();
 }
 
 
@@ -29,7 +33,12 @@ void ComecaJogo(tJogo jogo) {
  * @return 1 se o jogo acabou, 0 caso contrário.
  */
 int AcabouJogo(tJogo jogo) {
-
+    if (!TemPosicaoLivreTabuleiro(jogo.tabuleiro)) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
 
 
@@ -39,5 +48,12 @@ int AcabouJogo(tJogo jogo) {
  * @return 1 se o usuário deseja jogar novamente, 0 caso contrário.
  */
 int ContinuaJogo() {
-    
+    char option;
+    scanf("%c\n", &option);
+    if (option == 's') {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
