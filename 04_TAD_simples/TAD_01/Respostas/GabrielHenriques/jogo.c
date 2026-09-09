@@ -21,7 +21,43 @@ tJogo CriaJogo() {
  * @param jogo o jogo a ser iniciado.
  */
 void ComecaJogo(tJogo jogo) {
-    CriaJogo();
+
+    int contador = 0;
+    tJogador jogadorAtual;
+    tTabuleiro tabuleiroAtual = jogo.tabuleiro;
+
+    while (1) {
+        
+        if (contador % 2 == 0) {
+            jogadorAtual = jogo.jogador1;
+        }
+        else {
+            jogadorAtual = jogo.jogador2;
+        }
+
+        tabuleiroAtual = JogaJogador(jogadorAtual, tabuleiroAtual);
+        ImprimeTabuleiro(tabuleiroAtual);
+
+        if (!VenceuJogador(jogadorAtual, tabuleiroAtual)) {
+            contador++;
+            continue;
+        }
+        else {
+            printf("JOGADOR %d Venceu!\n", jogadorAtual.id);
+            break;
+        }
+        if (!AcabouJogo(jogo)) {
+            contador++;
+            continue;
+        }
+        else {
+            break;
+        }
+        
+        contador++;
+    }
+
+    
 }
 
 
@@ -49,7 +85,8 @@ int AcabouJogo(tJogo jogo) {
  */
 int ContinuaJogo() {
     char option;
-    scanf("%c\n", &option);
+    printf("Jogar novamente? (s,n)\n");
+    scanf(" %c", &option);
     if (option == 's') {
         return 1;
     }
