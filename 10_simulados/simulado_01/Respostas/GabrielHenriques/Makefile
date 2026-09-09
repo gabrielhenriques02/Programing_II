@@ -1,2 +1,2 @@
 all:
-	gcc -Wall -Wextra -g *.c -o prog -lm
+	gcc -Wall -Wextra -g *.c -o prog

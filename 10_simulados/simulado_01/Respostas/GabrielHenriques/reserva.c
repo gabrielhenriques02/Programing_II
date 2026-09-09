@@ -35,7 +35,29 @@ Reserva criaReserva(Morador morRes, Area aRes, Data dRes, int qtdConvidados) {
  *
  * Retorna 1 se a reserva pode ser realizada e 0 caso contrário
  */
-int verificaSolicitacaoReserva(Reserva *agendaReservas, int nRes, Morador morRes, Area aRes, Data dRes, int qtdConvidados);
+int verificaSolicitacaoReserva(Reserva *agendaReservas, int nRes, Morador morRes, Area aRes, Data dRes, int qtdConvidados) {
+
+    if (calcularDiffAnosData(morRes.dataNasc, dRes) < 18) {
+        return 0;
+    }
+    if (qtdConvidados > aRes.capacidade) {
+        return 0;
+    }
+
+    for (int i = 0; i < nRes; i++) {
+        if (comparaArea(agendaReservas[i].area, aRes) == 1 && comparaData(agendaReservas[i].data, dRes) == 1) {
+            return 0;
+        }
+    }
+
+    for (int i = 0; i < nRes; i++) {
+        if (comparaMorador(agendaReservas[i].morador, morRes) == 1 && comparaData(agendaReservas[i].data, dRes) == 1) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
 
 /**
  * Função que imprime todas as informações de uma Reserva conforme o formato
@@ -43,17 +65,16 @@ int verificaSolicitacaoReserva(Reserva *agendaReservas, int nRes, Morador morRes
  *
  */
 void imprimeReserva(Reserva r) {
-    float ocupacao = r.qtdConvidados / r.area.capacidade;
     printf("--------- RESERVA -----------\n");
-    printf("Morador: ");
+    printf("Morador: \n");
     imprimeMorador(r.morador);
     printf("\n");
-    printf("Area reservada: ");
+    printf("Area reservada: \n");
     imprimeArea(r.area);
     printf("Data da reserva: ");
     imprimeData(r.data);
     printf("\n");
     printf("Quantidade de convidados: %d\n", r.qtdConvidados);
-    printf("Taxa de ocupação: %d%%\n", floor(ocupacao));
+    printf("Taxa de ocupação: %.f%%\n", floor(((float)r.qtdConvidados/getCapacidadeArea(r.area))*100));
     printf("------------------------------\n");
 }
