@@ -26,7 +26,7 @@ void imprimeMorador(Morador m) {
     printf("CPF: %s\n", m.cpf);
     printf("Data de Nascimento: ");
     imprimeData(m.dataNasc);
-    printf("Residência: %s", m.idResidencia);
+    printf("Residência: %s\n", m.idResidencia);
 }
 
 /**

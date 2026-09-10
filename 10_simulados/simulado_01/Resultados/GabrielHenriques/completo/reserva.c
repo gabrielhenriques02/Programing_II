@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <math.h>
 #include "reserva.h"
 
 
@@ -75,6 +74,6 @@ void imprimeReserva(Reserva r) {
     imprimeData(r.data);
     printf("\n");
     printf("Quantidade de convidados: %d\n", r.qtdConvidados);
-    printf("Taxa de ocupação: %.f%%\n", floor(((float)r.qtdConvidados/getCapacidadeArea(r.area))*100));
+    printf("Taxa de ocupação: %d%%\n", (r.qtdConvidados * 100)/getCapacidadeArea(r.area));
     printf("------------------------------\n");
 }
