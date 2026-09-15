@@ -48,7 +48,7 @@ tLocadora cadastrarFilmeLocadora (tLocadora locadora, tFilme filme) {
         return locadora;
     }
     else {
-        printf("Filme ja cadastrado no estoque.\n");
+        printf("Filme ja cadastrado no estoque\n");
         return locadora;
     }
 }
@@ -112,7 +112,11 @@ tLocadora alugarFilmesLocadora (tLocadora locadora, int* codigos, int quantidade
         }
     }
     
-    printf("Total de filmes alugados: %d com custo de R$%d\n", filmesAlugados, custoTotal);
+    if (filmesAlugados != 0) {
+        printf("Total de filmes alugados: %d com custo de R$%d\n", filmesAlugados, custoTotal);
+        
+    }
+
     return locadora;
 }
 
@@ -172,8 +176,9 @@ tLocadora devolverFilmesLocadora (tLocadora locadora, int* codigos, int quantida
                 locadora.lucro += locadora.filme[j].valor;
             }
             else if (ehMesmoCodigoFilme(locadora.filme[j], codigos[i]) && obterQtdAlugadaFilme(locadora.filme[j]) == 0) {
-                printf("Não e possivel devolver o filme %d - ", obterCodigoFilme(locadora.filme[j]));
+                printf("Nao e possivel devolver o filme %d - ", obterCodigoFilme(locadora.filme[j]));
                 imprimirNomeFilme(locadora.filme[j]);
+                printf(".");
                 printf("\n");
             }
         }
