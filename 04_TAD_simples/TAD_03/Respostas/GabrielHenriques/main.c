@@ -11,52 +11,40 @@ int main() {
 
     char option[TAM_OPT];
 
-    while (1) {
+    while (scanf("%[^\n]\n", option) == 1) {
 
-        scanf("%[^\n]", option);
+        //printf("valor guardado em option: %s\n", option);
 
         if (strcmp(option, "Cadastrar") == 0) {
 
             char end;
-            lerCadastroLocadora(locadora);
+            locadora = lerCadastroLocadora(locadora);
             
-            if (scanf("%c", &end) == 1) {
+            if (scanf("%c\n", &end) == 1) {
                 printf("\n");
                 continue;
-            }
-            else {
-                consultarLucroLocadora(locadora);
-                break;
             }
         }
 
         else if (strcmp(option, "Alugar") == 0) {
 
             char end;
-            lerAluguelLocadora(locadora);
+            locadora = lerAluguelLocadora(locadora);
             
-            if (scanf("%c", &end) == 1) {
+            if (scanf("%c\n", &end) == 1) {
                 printf("\n");
                 continue;
-            }
-            else {
-                consultarLucroLocadora(locadora);
-                break;
             }
         }
 
         else if (strcmp(option, "Devolver") == 0) {
 
             char end;
-            lerDevolucaoLocadora(locadora);
+            locadora = lerDevolucaoLocadora(locadora);
             
-            if (scanf("%c", &end) == 1) {
+            if (scanf("%c\n", &end) == 1) {
                 printf("\n");
                 continue;
-            }
-            else {
-                consultarLucroLocadora(locadora);
-                break;
             }
         }
 
@@ -64,14 +52,11 @@ int main() {
 
             char end;
             consultarEstoqueLocadora(locadora);
+            printf("\n");
             
-            if (scanf("%c", &end) == 1) {
-                printf("\n");
+            if (scanf("%c\n", &end) == 1) {
+                //printf("\n");
                 continue;
-            }
-            else {
-                consultarLucroLocadora(locadora);
-                break;
             }
         }
 
@@ -80,5 +65,8 @@ int main() {
             break;
         }
     }
+
+    consultarLucroLocadora(locadora);
+    return 0;
     
 }
