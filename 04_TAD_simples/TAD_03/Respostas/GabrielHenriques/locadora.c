@@ -73,6 +73,7 @@ tLocadora lerCadastroLocadora (tLocadora locadora) {
         }
     }
 
+    //printf("\n"); //teste
     return locadora;
 }
 
@@ -117,6 +118,7 @@ tLocadora alugarFilmesLocadora (tLocadora locadora, int* codigos, int quantidade
         
     }
 
+    //printf("\n"); //teste
     return locadora;
 }
 
@@ -184,6 +186,7 @@ tLocadora devolverFilmesLocadora (tLocadora locadora, int* codigos, int quantida
         }
     }
     
+    //printf("\n"); //teste
     return locadora;
 
 }
@@ -254,10 +257,12 @@ void consultarEstoqueLocadora (tLocadora locadora) {
 
     for (int i = 0; i < locadora.numFilmes; i++) {
 
-        printf("%d - ", ordenarFilmesLocadora(locadora).filme[i].codigo);
-        imprimirNomeFilme(ordenarFilmesLocadora(locadora).filme[i]);
-        printf(" Fitas em estoque: %d\n", ordenarFilmesLocadora(locadora).filme[i].qtdEstoque);
+        printf("%d - ", locadora.filme[i].codigo);
+        imprimirNomeFilme(locadora.filme[i]);
+        printf(" Fitas em estoque: %d\n", locadora.filme[i].qtdEstoque);
     }
+
+    printf("\n");
 }
 
 /**

@@ -11,7 +11,7 @@ int main() {
 
     char option[TAM_OPT];
 
-    while (scanf("%[^\n]\n", option) == 1) {
+    while (scanf("%[^ \n]\n", option) == 1) {
 
         //printf("valor guardado em option: %s\n", option);
 
@@ -51,8 +51,9 @@ int main() {
         else if (strcmp(option, "Estoque") == 0) {
 
             char end;
+            locadora = ordenarFilmesLocadora(locadora);
             consultarEstoqueLocadora(locadora);
-            printf("\n");
+            //printf("\n");
             
             if (scanf("%c\n", &end) == 1) {
                 //printf("\n");
