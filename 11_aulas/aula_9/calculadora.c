@@ -27,7 +27,7 @@ void inicializa_array_operacoes() {
 }
 
 int calculadora(char op_cod, int num1, int num2) {
-fptrOperacao op;
+    fptrOperacao op;
     op = operacoes[op_cod];
     return op(num1, num2);
 }
