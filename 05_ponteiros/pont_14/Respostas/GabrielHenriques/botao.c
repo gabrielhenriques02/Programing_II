@@ -71,10 +71,15 @@ void SetarTipo(Botao *b, int novoTipo) {
  * @return Botao Retorna o botão criado.
  */
 Botao CriarBotao(char *texto, int tamFonte, char *cor, int tipo, void (*executa)(void)) {
+
     Botao b;
+    SetarTexto(&b, texto);
+    SetarTamFonte(&b, tamFonte);
+    SetarCor(&b, cor);
+    SetarTipo(&b, tipo);
+    b.executa = executa;
 
-    
-
+    return b;
 }
 
 /**
@@ -83,7 +88,9 @@ Botao CriarBotao(char *texto, int tamFonte, char *cor, int tipo, void (*executa)
  * 
  * @param b Botão que terá sua função executada.
  */
-void ExecutaBotao(Botao b);
+void ExecutaBotao(Botao b) {
+    if ()
+}
 
 /**
  * @brief Desenha o botão especificado na posição especificada na tela.
