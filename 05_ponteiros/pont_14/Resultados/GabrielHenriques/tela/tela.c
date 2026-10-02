@@ -61,6 +61,5 @@ void OuvidorEventosTela(Tela t) {
     }
     else {
         ExecutaBotao(t.botoes[idx]);
-        //printf("- Botao de %s dados ativado!")
     }
 }

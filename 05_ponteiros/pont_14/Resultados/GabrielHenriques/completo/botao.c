@@ -71,7 +71,6 @@ void SetarTipo(Botao *b, int novoTipo) {
  * @return Botao Retorna o botão criado.
  */
 Botao CriarBotao(char *texto, int tamFonte, char *cor, int tipo, void (*executa)(void)) {
-
     Botao b;
     SetarTexto(&b, texto);
     SetarTamFonte(&b, tamFonte);
