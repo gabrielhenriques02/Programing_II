@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include "utils.h"
+#ifndef _UTILS_H_
+#define _UTILS_H_
 
 /**
  * @brief Troca os valores de duas variáveis inteiras.
@@ -10,14 +10,6 @@
  * @param n2 Ponteiro para a segunda variável a ser trocada.
  * @return 1 se a troca foi realizada com sucesso, 0 caso contrário.
  */
-int TrocaInterios(int * n1, int * n2) {
-    if ((*n1) > (*n2)) {
-        (*n1) = (*n1) + (*n2);
-        (*n2) = (*n1) - (*n2);
-        (*n1) = (*n1) - (*n2);
-        return 1;
-    }
-    else {
-        return 0;
-    }
-}
+int TrocaInterios(int * n1, int * n2);
+
+#endif
