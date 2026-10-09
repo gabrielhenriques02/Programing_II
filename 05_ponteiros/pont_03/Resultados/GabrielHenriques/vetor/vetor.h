@@ -1,6 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "vetor.h"
+#ifndef _VETOR_H_
+#define _VETOR_H_
 
 /**
  * @brief Lê dados do usuário e armazena em um vetor.
@@ -10,11 +9,7 @@
  * @param vet Ponteiro para o vetor que receberá os valores lidos.
  * @param tam Tamanho do vetor.
  */
-void LeDadosParaVetor(int * vet, int tam) {
-    for (int i = 0; i < tam; i++) {
-        scanf(" %d", &vet[i]);
-    }
-}
+void LeDadosParaVetor(int * vet, int tam);
 
 /**
  * @brief Imprime os dados de um vetor na tela.
@@ -24,12 +19,7 @@ void LeDadosParaVetor(int * vet, int tam) {
  * @param n Ponteiro para o vetor a ser impresso.
  * @param tam Tamanho do vetor.
  */
-void ImprimeDadosDoVetor(int * n, int tam) {
-    for (int i = 0; i < tam; i++) {
-        printf("%d ", n[i]);
-    }
-    printf("\n");
-}
+void ImprimeDadosDoVetor(int * n, int tam);
 
 /**
  * @brief Troca o valor de duas variáveis se o segundo for menor que o primeiro.
@@ -43,22 +33,7 @@ void ImprimeDadosDoVetor(int * n, int tam) {
  * @param tam Tamanho do vetor.
  * @param paraTrocar Ponteiro para a variável que armazenará o índice do menor valor encontrado.
  */
-void TrocaSeAcharMenor(int * vet, int tam, int * paraTrocar) {
-    int idxMenor = -1;
-    int menorValor = *paraTrocar;
-    for (int i = 0; i < tam; i++) {
-        if (vet[i] < menorValor) {
-            menorValor = vet[i];
-            idxMenor = i;
-        }
-    }
-
-    if (idxMenor != -1) {
-        int temp = *paraTrocar;
-        *paraTrocar = vet[idxMenor];
-        vet[idxMenor] = temp;
-    }
-}
+void TrocaSeAcharMenor(int * vet, int tam, int * paraTrocar);
 
 /**
  * @brief Ordena um vetor em ordem crescente.
@@ -68,8 +43,6 @@ void TrocaSeAcharMenor(int * vet, int tam, int * paraTrocar) {
  * @param vet Ponteiro para o vetor a ser ordenado.
  * @param tam Tamanho do vetor.
  */
-void OrdeneCrescente(int * vet, int tam) {
-    for (int i = 0; i < tam - 1; i++) {
-        TrocaSeAcharMenor(vet + i + 1, tam - i - 1, &vet[i]);
-    }
-}
+void OrdeneCrescente(int * vet, int tam);
+
+#endif
