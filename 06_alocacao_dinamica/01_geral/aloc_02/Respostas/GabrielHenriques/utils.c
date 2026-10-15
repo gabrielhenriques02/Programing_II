@@ -10,13 +10,13 @@
  * @return Ponteiro para a matriz alocada.
 */
 int **CriaMatriz(int linhas, int colunas) {
-    int **matriz = (int**) calloc(colunas, sizeof(int*));
+    int **matriz = (int**) calloc(linhas, sizeof(int*));
     if (matriz == NULL) {
         exit(1);
     }
     else {
-        for (int i = 0; i < colunas; i++) {
-            matriz[i] = (int*) calloc(linhas, sizeof(int));
+        for (int i = 0; i < linhas; i++) {
+            matriz[i] = (int*) calloc(colunas, sizeof(int));
             if (matriz[i] == NULL) {
                 exit(1);
             }

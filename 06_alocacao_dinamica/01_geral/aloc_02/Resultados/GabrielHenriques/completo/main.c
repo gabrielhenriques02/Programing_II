@@ -17,5 +17,5 @@ int main() {
     }
     printf("matriz transposta:\n");*/
     ImprimeMatrizTransposta(matriz, linhas, colunas);
-    LiberaMatriz(matriz, colunas);
+    LiberaMatriz(matriz, linhas);
 }
