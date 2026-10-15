@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "utils_char.h"
 
 /**
@@ -13,7 +14,7 @@
 char *CriaVetor(int tamanho) {
     char *v = (char *) calloc(tamanho, sizeof(char));
     for (int i = 0; i < tamanho; i++) {
-        v[i] = "_";
+        v[i] = '_';
     }
     return v;
 }
@@ -25,8 +26,14 @@ char *CriaVetor(int tamanho) {
  * @param tamanho Tamanho do vetor a ser lido.
 */
 void LeVetor(char *vetor, int tamanho) {
-    for (int i = 0; i < tamanho; i++) {
+    int i = 0;
+    while (i < tamanho) {
         scanf("%c", &vetor[i]);
+        if (vetor[i] == '\n') {
+            vetor[i] = '_';
+            break;
+        }
+        i++;
     }
 }
 
@@ -37,11 +44,18 @@ void LeVetor(char *vetor, int tamanho) {
  * @param tamanho Tamanho do vetor a ser lido.
  * @return Média dos valores do vetor.
 */
-void ImprimeString(char *vetor, int tamanho);
+void ImprimeString(char *vetor, int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        printf("%c", vetor[i]);
+    }
+    printf("\n");
+}
 
 /**
  * Libera a memória alocada para um vetor de caracteres.
  * 
  * @param vetor Ponteiro para o vetor a ser liberado.
 */
-void LiberaVetor(char *vetor);
+void LiberaVetor(char *vetor) {
+    free(vetor);
+}
