@@ -69,7 +69,7 @@ Função que imprime o identificador de uma lesão.
 @param l: Ponteiro para a lesão cuja identificação será impressa.
 */
 void imprimeIdLesao(Lesao *l) {
-    printf("%s\n", l->id);
+    printf("%s ", l->id);
 }
 
 /*
