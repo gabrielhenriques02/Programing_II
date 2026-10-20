@@ -18,6 +18,9 @@ struct Agencia {
 tAgencia* CriaAgencia() {
     tAgencia *a = (tAgencia *) calloc(1, sizeof(tAgencia));
     a->contas = NULL;
+    a->operacoes = NULL;
+    a->qtdContas = a->qtdOperacoes = 0;
+    return a;
 }
 
 /**
@@ -25,14 +28,45 @@ tAgencia* CriaAgencia() {
  *
  * @param A variável do tipo Agencia que será apagada.
  */
-void DestroiAgencia(tAgencia* agencia);
+void DestroiAgencia(tAgencia* agencia) {
+    for (int i = 0; i < agencia->qtdContas; i++) {
+        DestroiConta(agencia->contas[i]);
+    }
+    for (int i = 0; i < agencia->qtdOperacoes; i++) {
+        DestroiOperacao(agencia->operacoes[i]);
+    }
+    DestroiConta(agencia->contas);
+    DestroiOperacao(agencia->operacoes);
+    //DestroiConta(agencia->contas);
+    //DestroiOperacao(agencia->operacoes);
+    free(agencia);
+}
 
 /**
  * @brief Le as informações de uma agencia - contas e operações, no formato especificado no roteiro
  *
  * @param agencia - A variável do tipo agencia que salvará os dados lidos
  */
-void LeOperacoes(tAgencia *agencia);
+void LeOperacoes(tAgencia *agencia) {
+    int qtdContasAloc = 0;
+    int qtdOperacoesAloc = 0;
+    scanf("%d\n", &agencia->qtdContas);
+
+    while (qtdContasAloc < agencia->qtdContas) {
+        int idConta;
+        scanf("%d\n", &idConta);
+        if (idConta > 0) {
+            agencia->contas = (tConta **) realloc(agencia->contas, qtdContasAloc * sizeof(tConta *));
+            agencia->contas[qtdContasAloc] = CriaConta(idConta);
+            qtdContasAloc++;
+        }
+        else {
+            printf("Digite um id valido para a conta a ser cadastrada!\n");
+        }
+    }
+
+    
+}
 
 /**
  * @brief Busca uma conta na agencia que possui um id específico
