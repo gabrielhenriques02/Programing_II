@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "missil.h"
 
 struct missil {
-    char nome[MAX_TAM];
+    char *nome;
     float x, y, poder;
 };
 
@@ -15,6 +14,7 @@ struct missil {
  */
 tMissil LeMissil() {
     tMissil m = (tMissil) calloc(1, sizeof(struct missil));
+    m->nome = (char *) calloc(MAX_TAM, sizeof(char));
     scanf("%s %f %f %f\n", m->nome, &m->x, &m->y, &m->poder);
     return m;
 }
@@ -25,7 +25,7 @@ tMissil LeMissil() {
  * @param missil Ponteiro para o míssil que será impresso.
  */
 void ImprimeMissil(tMissil missil) {
-    
+    printf("M-%s: %.2f\n", missil->nome, missil->poder);
 }
 
 /**
@@ -33,7 +33,10 @@ void ImprimeMissil(tMissil missil) {
  * 
  * @param missil Ponteiro para o míssil que terá a memória liberada.
  */
-void LiberaMissil(tMissil missil);
+void LiberaMissil(tMissil missil) {
+    free(missil->nome);
+    free(missil);
+}
 
 /**
  * @brief Obtém a coordenada y do míssil.
@@ -41,7 +44,9 @@ void LiberaMissil(tMissil missil);
  * @param missil Ponteiro para o míssil que terá a coordenada y obtida.
  * @return float Coordenada y do míssil.
  */
-float GetMissilY(tMissil missil);
+float GetMissilY(tMissil missil) {
+    return missil->y;
+}
 
 /**
  * @brief Obtém a coordenada x do míssil.
@@ -49,7 +54,9 @@ float GetMissilY(tMissil missil);
  * @param missil Ponteiro para o míssil que terá a coordenada x obtida.
  * @return float Coordenada x do míssil.
  */
-float GetMissilX(tMissil missil);
+float GetMissilX(tMissil missil) {
+    return missil->x;
+}
 
 /**
  * @brief Obtém o poder de ataque do míssil.
@@ -57,7 +64,9 @@ float GetMissilX(tMissil missil);
  * @param missil Ponteiro para o míssil que terá o poder de ataque obtido.
  * @return float Poder de ataque do míssil.
  */
-float GetMissilPoder(tMissil missil);
+float GetMissilPoder(tMissil missil) {
+    return missil->poder;
+}
 
 /**
  * @brief Reduz o poder de ataque do míssil.
@@ -65,4 +74,9 @@ float GetMissilPoder(tMissil missil);
  * @param missil Ponteiro para o míssil que terá o poder de ataque reduzido.
  * @param valor Valor a ser subtraído do poder de ataque do míssil.
  */
-void ReduzPoder(tMissil missil, float valor);
+void ReduzPoder(tMissil missil, float valor) {
+    missil->poder -= valor;
+    if (missil->poder < 0) {
+        missil->poder = 0;
+    }
+}
