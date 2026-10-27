@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include "datahora.h"
 
-#define MIN_ANO 365*24*60
-#define MIN_ANO_BI 366*24*60
-
 int verificaBissexto(DataHora *d);
 int verificaDiasMes(DataHora *d);
 
@@ -85,43 +82,48 @@ DataHora *lerDataHora() {
  * @note    Nenhuma das duas datas/horas é modificada ou liberada.
  */
 int diferencaMinutosDataHora(DataHora *inicio, DataHora *fim) {
-    int difDiasInicio = 0, difDiasMeses = 0, difDiasFim = 0, difMin = 0, difHoras = 0;
+    int difMin = 0, difHoras = 0, difDias = 0;
 
-    DataHora *inicioCp = criaDataHora(inicio->dia, inicio->mes, inicio->ano, inicio->hora, inicio->minuto);
-    difMin = 60 - inicioCp->minuto;
-    difHoras = 24 - inicioCp->hora + 1;
+    if (inicio != NULL && fim !=NULL) {
+        DataHora *inicioCp = criaDataHora(inicio->dia, inicio->mes, inicio->ano, inicio->hora, inicio->minuto);
+        difMin = 60 - inicioCp->minuto;
+        difHoras = 24 - inicioCp->hora + 1;
 
-    if (inicio->ano == fim->ano) {
-        difDiasInicio = verificaDiasMes(inicioCp->mes) - inicioCp->dia;
-        for (inicioCp->mes + 1; inicioCp->mes < fim->mes; inicioCp->mes++) {
-            difDiasMeses += verificaDiasMes(inicioCp->mes);
+        if (inicioCp->dia == fim->dia && inicioCp->mes == fim->mes && inicioCp->ano == fim->ano) {
+            if (inicioCp->hora == fim->hora) {
+                return fim->minuto - inicioCp->minuto;
+            }
+            else if (inicioCp->hora + 1 == fim->hora) {
+                return (difMin + fim->minuto);
+            }
+            else {
+                return (fim->hora - inicioCp->hora)*60 + (difMin + fim->minuto);
+            }
         }
-        difDiasFim = fim->dia;
-        return (difDiasInicio + difDiasMeses + difDiasFim)*24*60 + difHoras*60 + fim->hora*60 + difMin + fim->minuto;
-    }
-    else if (inicio->ano + 1 == fim->ano) {
-        if (verificaBissexto(fim->ano) == 1) {
-            return MinutosAteFimAno(inicioCp) + MIN_ANO_BI - MinutosAteFimAno(fim);
+
+        if (inicioCp->dia != fim->dia && inicioCp->mes == fim->mes && inicioCp->ano == fim->ano) {
+            return (fim->dia - inicioCp->dia)*24*60 + (difHoras + fim->hora)*60 + (difMin + fim->minuto);
         }
-        else {
-            return MinutosAteFimAno(inicioCp) + MIN_ANO - MinutosAteFimAno(fim);
+
+        while(inicioCp->mes != fim->mes || inicioCp->ano != fim->ano) {
+            difDias += verificaDiasMes(inicioCp) - inicioCp->dia;
+            if (inicioCp->mes == 12) {
+                inicioCp->dia = 0;
+                inicioCp->mes = 1;
+                inicioCp->ano++;
+            }
+            else {
+                inicioCp->dia = 0;
+                inicioCp->mes++;
+            }
         }
+
+        liberaDataHora(inicioCp);
+        return (difDias + fim->dia)*24*60 + (difHoras + fim->hora)*60 + (difMin + fim->minuto);
     }
     else {
-        int minAnos = 0;
-        for (inicioCp->ano + 1; inicioCp->ano < fim->ano; inicioCp->ano++) {
-            minAnos += minutosAno(inicioCp);
-        }
-        
+        return -1;
     }
-
-
-
-
-
-
-
-    free(inicioCp);
 }
 
 /**
@@ -135,15 +137,20 @@ int diferencaMinutosDataHora(DataHora *inicio, DataHora *fim) {
  * @param dh  [entrada]  Data/hora a imprimir (não-nula).
  * @pre     dh != NULL.
  */
-void imprimeDataHora(DataHora *dh);
-
+void imprimeDataHora(DataHora *dh) {
+    if (dh != NULL) {
+        printf("%02d/%02d/%04d %02d:%02d", dh->dia, dh->mes, dh->ano, dh->hora, dh->minuto);
+    }
+}
 /**
  * @brief   Libera a memória alocada para uma data/hora.
  *
  * @param dh  [entrada]  Data/hora a liberar.
  * @post    A memória apontada por dh é liberada; o ponteiro não deve mais ser usado.
  */
-void liberaDataHora(DataHora *dh);
+void liberaDataHora(DataHora *dh) {
+    free(dh);
+}
 
 int verificaBissexto(DataHora *d) {
     if ((d->ano % 400 == 0) || (d->ano % 4 == 0 && d->ano % 100 != 0)) {
@@ -179,24 +186,4 @@ int verificaDiasMes(DataHora *d) {
         }
     }
     return -1;
-}
-
-int MinutosAteFimAno(DataHora *d) {
-    int difMin = 60 - d->minuto;
-    int difHoras = 24 - d->hora + 1;
-    int difDiasMes = verificaDiasMes(d) - d->dia;
-    int difDiasMesesResto = 0;
-    for (d->mes; d->mes < 13; d->mes++) {
-        difDiasMesesResto += verificaDiasMes(d);
-    }
-    return (difDiasMesesResto + difDiasMes)*24*60 + difHoras*60 + difMin;
-}
-
-int minutosAno(DataHora *d) {
-    if (verificaBissexto(d) == 1) {
-        return 366*24*60;
-    }
-    else {
-        return 365*24*60;
-    }
 }
