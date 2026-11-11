@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "receita.h"
 #include "documento.h"
 #include "fila_imp.h"
 
