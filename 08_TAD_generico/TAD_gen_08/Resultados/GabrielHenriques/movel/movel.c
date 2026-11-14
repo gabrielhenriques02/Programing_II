@@ -4,7 +4,7 @@
 #include "movel.h"
 
 struct Movel {
-    char nome[100];
+    char nome[30];
 };
 
 /**
